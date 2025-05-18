@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css"/>
-        <link href="assets/search-result.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/search-resultt.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -23,7 +23,7 @@
                     <c:choose>
                         <c:when test="${not empty productList}">
                             <c:forEach var="product" items="${productList}">
-                                <div class="all-product">
+                                <div class="all-product" style="margin-left: 5px">
                                     <a href="infor-product.jsp?productID=${product.productID}">
                                         <img class="all-product-img" src="${product.imageURL}" alt="${product.productName}">
                                     </a>

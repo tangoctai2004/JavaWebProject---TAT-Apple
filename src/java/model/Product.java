@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class Product {
     private int productID;
     private int brandID;
@@ -34,4 +36,15 @@ public class Product {
     public String getImageURL() { return imageURL; }
     public String getImageColorURL() { return imageColorURL; }
     public String getCreatedAt() { return createdAt; }
+    
+        // Add vào class Product
+    private List<ProductVariant> variants;
+
+    public List<ProductVariant> getVariants() {
+        return variants;
+    }
+
+    public void setVariants(List<ProductVariant> variants) {
+        this.variants = variants;
+    }
 }
