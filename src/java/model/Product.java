@@ -1,0 +1,71 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+/**
+ *
+ * @author tnteheh
+ */
+public class Product {
+    private int productID;
+    private int brandID;
+    private int categoryID;
+    private String productName;
+    private String description;
+    private double basePrice;
+    private String imageURL;
+    private String imageColorURL;
+    private String createdAt;
+
+    // Constructor
+    public Product(int productID, int brandID, int categoryID, String productName, String description, double basePrice, String imageURL, String imageColorURL, String createdAt) {
+        this.productID = productID;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+        this.productName = productName;
+        this.description = description;
+        this.basePrice = basePrice;
+        this.imageURL = imageURL;
+        this.imageColorURL = imageColorURL;
+        this.createdAt = createdAt;
+    }
+
+    // Getters and Setters
+    public int getProductID() {
+        return productID;
+    }
+
+    public int getBrandID() {
+        return brandID;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public String getImageColorURL() {
+        return imageColorURL;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+}
