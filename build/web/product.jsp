@@ -17,8 +17,8 @@
     <body>
         <%@ include file="header.jsp" %>
         <main style="margin-bottom: 50px; text-align: center">
-            <div class="banner-iphone" style="background-color: black">
-                <img src="images/iPhone/Banner-iPhone.webp" style=" height: 60vh"/>
+            <div class="banner-iphone" style="">
+                <img src="${bannerURL}" style=" width: 100%; height: 100%"/>
             </div>
             <form action="" method="">
                 <div class="filter-product" style=" margin-top: 50px">

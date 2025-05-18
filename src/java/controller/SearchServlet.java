@@ -20,8 +20,9 @@ import model.Product;
  *
  * @author tnteheh
  */
-@WebServlet(name="productServlet", urlPatterns={"/productServlet"})
-public class productServlet extends HttpServlet {
+@WebServlet(name="SearchServlet", urlPatterns={"/search"})
+public class SearchServlet extends HttpServlet {
+    private ProductDAO productDAO = new ProductDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +39,10 @@ public class productServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet productServlet</title>");
+            out.println("<title>Servlet SearchServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet productServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SearchServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,23 +59,10 @@ public class productServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       ProductDAO dao = new ProductDAO();
-
-        String categoryIdStr = request.getParameter("categoryId");
-        int categoryId = 1; // Mặc định iPhone = 1
-        try {
-            if (categoryIdStr != null) {
-                categoryId = Integer.parseInt(categoryIdStr);
-            }
-        } catch (NumberFormatException e) {
-            // Giữ mặc định nếu lỗi parse
-        }
-
-        List<Product> productList = dao.getProductsByCategory(categoryId);
-        request.setAttribute("productList", productList);
-        String bannerURL = dao.getBannerByCategoryID(categoryId);
-        request.setAttribute("bannerURL", bannerURL);
-        request.getRequestDispatcher("product.jsp").forward(request, response);
+        String keyword = request.getParameter("keyword");
+        List<Product> products = productDAO.searchProductsByName(keyword);
+        request.setAttribute("productList", products);
+        request.getRequestDispatcher("search_results.jsp").forward(request, response);
     }
 
     /**

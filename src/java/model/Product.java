@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author tnteheh
- */
 public class Product {
     private int productID;
     private int brandID;
@@ -19,8 +11,8 @@ public class Product {
     private String imageColorURL;
     private String createdAt;
 
-    // Constructor
-    public Product(int productID, int brandID, int categoryID, String productName, String description, double basePrice, String imageURL, String imageColorURL, String createdAt) {
+    public Product(int productID, int brandID, int categoryID, String productName, String description,
+                   double basePrice, String imageURL, String imageColorURL, String createdAt) {
         this.productID = productID;
         this.brandID = brandID;
         this.categoryID = categoryID;
@@ -32,40 +24,14 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
-    public int getProductID() {
-        return productID;
-    }
-
-    public int getBrandID() {
-        return brandID;
-    }
-
-    public int getCategoryID() {
-        return categoryID;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public String getImageColorURL() {
-        return imageColorURL;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
+    // Getters
+    public int getProductID() { return productID; }
+    public int getBrandID() { return brandID; }
+    public int getCategoryID() { return categoryID; }
+    public String getProductName() { return productName; }
+    public String getDescription() { return description; }
+    public double getBasePrice() { return basePrice; }
+    public String getImageURL() { return imageURL; }
+    public String getImageColorURL() { return imageColorURL; }
+    public String getCreatedAt() { return createdAt; }
 }

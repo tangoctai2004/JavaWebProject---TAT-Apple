@@ -34,7 +34,7 @@
                 <a href="home"><img style="width: 250px" src="images/Logo.jpg"></a>
             </div>
             <div class="header-bar_search">
-                <form action="" method="">
+                <form action="search" method="get">
                     <button type="submit" style="display: none;"></button>
                     <input type="text" class="search" name="keyword" placeholder="Tìm kiếm sản phẩm tại TAT Apple...">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -66,10 +66,10 @@
         </div>
         <ul class="menu-tieu-de">
             <li style="width: 200px"><a href="productServlet?categoryId=1">iPhone</a></li>
-            <li style="width: 200px"><a href="productServlet?categoryId=1">iPad</a></li>
+            <li style="width: 200px"><a href="productServlet?categoryId=2">iPad</a></li>
             <li style="width: 200px"><a href="productServlet?categoryId=3">Apple Watch</a></li>
-            <li style="width: 200px"><a href="productServlet?categoryId=2">Macbook</a></li>
-            <li style="width: 200px"><a href="productServlet?categoryId=4">Âm Thanh</a></li>
+            <li style="width: 200px"><a href="productServlet?categoryId=4">Macbook</a></li>
+            <li style="width: 200px"><a href="productServlet?categoryId=5">Âm Thanh</a></li>
             <li style="width: 200px"><a href="/accessory">Phụ kiện</a></li>
     <li style="width: 200px">
         <a href="/infor-about-tatapple">Tìm hiểu thêm</a>
