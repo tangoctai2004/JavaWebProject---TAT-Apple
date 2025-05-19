@@ -1,10 +1,11 @@
-<%-- 
-    Document   : admin-products
-    Created on : 17 thg 5, 2025, 20:13:38
-    Author     : tnteheh
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.Product"%>
+<%@page import="dal.ProductDAO"%>
+<%
+    int productID = Integer.parseInt(request.getParameter("productID"));
+    ProductDAO productDAO = new ProductDAO();
+    Product product = productDAO.getProductById(productID);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,78 +18,54 @@
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            <div class="logo" style="display: flex; justify-content: center; align-items: center;">
-                <img src="images/Logo.jpg" style="width: 100%; border-radius: 10px;" alt="">
-            </div>
-            <div class="menu">
-                <h4>MENU</h4>
-                <ul>
-                    <li><a href="admin-dashboard.jsp">Tổng quan</a></li>
-                    <li class="active"><a href="admin-products.jsp">Sản phẩm</a></li>
-                    <li><a href="admin-categories.jsp">Danh mục</a></li>
-                    <li><a href="admin-variant.jsp">Phiên bản sản phẩm</a></li>
-                    <li><a href="admin-admins.jsp">Quản trị viên</a></li>
-                    <li><a href="admin-users.jsp">Người dùng</a></li>
-                </ul>
-                <div class="logout-section">
-                    <a href="logout.jsp">Đăng xuất</a>
-                </div>
-            </div>
-        </div>
+        <%@ include file="admin-navbar-left.jsp" %>
+
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Header -->
-            <div class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Nhập để tìm kiếm...">
-                </div>
-                <div class="user-profile">
-                    <div>
-                        <p style="margin-right: 10px;">Xin chào, </p>
-                    </div>
-                    <div class="user-info" style="font-family: 'Montserrat-Regular';">
-                        <span>Tạ Ngọc Tài</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Title -->
+            <%@ include file="admin-header.jsp" %>
             <div class="header-title">
                 <h1 style="font-family: 'Montserrat-Regular';">SỬA SẢN PHẨM</h1>
             </div>
             <!-- Edit Product Form -->
             <div class="edit-product-form">
-                <form action="updateProductServlet" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="">
+                <form action="update-product" method="POST">
+                    <input type="hidden" name="productID" value="<%=product.getProductID()%>">
+
                     <div class="form-group">
-                        <label for="product-name">Tên sản phẩm</label>
-                        <input type="text" id="product-name" name="product-name" required>
+                        <label for="productName">Tên sản phẩm</label>
+                        <input type="text" id="productName" name="productName" value="<%=product.getProductName()%>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="product-name">Thương hiệu</label>
-                        <input type="text" id="product-name" name="product-name" required>
+                        <label for="brandID">Thương hiệu (Brand ID)</label>
+                        <input type="number" id="brandID" name="brandID" value="<%=product.getBrandID()%>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="product-name">Danh mục</label>
-                        <input type="text" id="product-name" name="product-name" required>
+                        <label for="categoryID">Danh mục (Category ID)</label>
+                        <input type="number" id="categoryID" name="categoryID" value="<%=product.getCategoryID()%>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="price">Giá (VND)</label>
-                        <input type="number" id="price" name="price" required>
+                        <label for="basePrice">Giá (VND)</label>
+                        <input type="number" id="basePrice" name="basePrice" step="0.01" value="<%=product.getBasePrice()%>" required>
                     </div>
+
                     <div class="form-group">
                         <label for="description">Mô tả</label>
-                        <textarea id="description" name="description" required></textarea>
+                        <textarea id="description" name="description" rows="4" required><%=product.getDescription()%></textarea>
                     </div>
+
                     <div class="form-group">
-                        <label for="capacity">Dung lượng</label>
-                        <input type="text" id="capacity" name="capacity" required>
+                        <label for="imageURL">Ảnh sản phẩm (Image URL)</label>
+                        <input type="text" id="imageURL" name="imageURL" value="<%=product.getImageURL()%>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="image">Hình ảnh</label>
-                        <img src="" alt="Current Image" class="current-image" style="display: none;">
-                        <input type="file" id="image" name="image" accept="image/*">
+                        <label for="imageColorURL">Ảnh màu (Image Color URL)</label>
+                        <input type="text" id="imageColorURL" name="imageColorURL" value="<%=product.getImageColorURL()%>">
                     </div>
+
                     <div class="form-buttons">
                         <button type="submit" class="save-button">Lưu</button>
                         <a href="admin-products.jsp" class="cancel-button">Hủy</a>

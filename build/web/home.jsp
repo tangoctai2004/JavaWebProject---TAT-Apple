@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -95,7 +96,7 @@
             </div><!-- comment -->
 
             <div>
-                <h1>Sản phẩm nổi bật</h1>
+                <h1>SẢN PHẨM NỔI BẬT</h1>
             </div>
             <div class="all-product-list">
                 <div class="all-product-frame">
@@ -105,7 +106,9 @@
                                 <img class="all-product-img" src="${product.imageURL}" alt="${product.productName}">
                             </a>
                             <p class="all-product-name">${product.productName}</p>
-                            <p class="all-product-price">${product.basePrice} <u>đ</u></p>
+                            <p class="all-product-price">
+                                <fmt:formatNumber value="${product.basePrice}" type="number" groupingUsed="true"/> <u>đ</u>
+                            </p>
                             <div class="all-product-color">
                                 <span>
                                     <img class="all-product-color_icon" src="${product.imageColorURL}" alt="Color icon"/>

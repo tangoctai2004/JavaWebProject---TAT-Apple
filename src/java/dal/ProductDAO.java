@@ -17,6 +17,32 @@ import java.util.List;
 import model.Product;
 
 public class ProductDAO extends DBContext {
+    
+    public List<Product> getAllProducts() throws SQLException {
+        String sql = "SELECT * FROM Products ORDER BY ProductID DESC";
+        List<Product> list = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Product p = new Product(
+                    rs.getInt("ProductID"),
+                    rs.getInt("BrandID"),
+                    rs.getInt("CategoryID"),
+                    rs.getString("ProductName"),
+                    rs.getString("Description"),
+                    rs.getDouble("BasePrice"),
+                    rs.getString("ImageURL"),
+                    rs.getString("ImageColorURL"),
+                    rs.getString("CreatedAt")
+                );
+                list.add(p);
+            }
+        }
+        return list;
+    }
+    
+    
+    
     //Lấy toàn sản phẩm theo Category VD: iphone, ipad
     public List<Product> getProductsByCategory(int categoryId) {
         List<Product> products = new ArrayList<>();
@@ -127,4 +153,82 @@ public class ProductDAO extends DBContext {
         }
         return products;
     }
+    
+    // Thêm hàm insert
+    public boolean insertProduct(Product p) {
+        String sql = "INSERT INTO Products (BrandID, CategoryID, ProductName, Description, BasePrice, ImageURL, ImageColorURL, CreatedAt) "
+                   + "VALUES (?, ?, ?, ?, ?, ?, ?, GETDATE())";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, p.getBrandID());
+            stmt.setInt(2, p.getCategoryID());
+            stmt.setString(3, p.getProductName());
+            stmt.setString(4, p.getDescription());
+            stmt.setDouble(5, p.getBasePrice());
+            stmt.setString(6, p.getImageURL());
+            stmt.setString(7, p.getImageColorURL());
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Thêm hàm update
+    public boolean updateProduct(Product p) {
+        String sql = "UPDATE Products SET BrandID = ?, CategoryID = ?, ProductName = ?, Description = ?, BasePrice = ?, ImageURL = ?, ImageColorURL = ? WHERE ProductID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, p.getBrandID());
+            stmt.setInt(2, p.getCategoryID());
+            stmt.setString(3, p.getProductName());
+            stmt.setString(4, p.getDescription());
+            stmt.setDouble(5, p.getBasePrice());
+            stmt.setString(6, p.getImageURL());
+            stmt.setString(7, p.getImageColorURL());
+            stmt.setInt(8, p.getProductID());
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+        public boolean deleteProduct(int productID) {
+        String sql = "DELETE FROM Products WHERE ProductID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, productID);
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    // Lấy sản phẩm theo ID để sửa
+    public Product getProductById(int productID) {
+        Product product = null;
+        String sql = "SELECT * FROM Products WHERE ProductID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, productID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                product = new Product(
+                    rs.getInt("ProductID"),
+                    rs.getInt("BrandID"),
+                    rs.getInt("CategoryID"),
+                    rs.getString("ProductName"),
+                    rs.getString("Description"),
+                    rs.getDouble("BasePrice"),
+                    rs.getString("ImageURL"),
+                    rs.getString("ImageColorURL"),
+                    rs.getString("CreatedAt")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
+}
 }

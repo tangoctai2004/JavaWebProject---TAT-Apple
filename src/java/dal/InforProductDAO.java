@@ -73,4 +73,34 @@ public class InforProductDAO extends DBContext{
 
         return product;
     }
+    
+    // Lấy thông tin sản phẩm theo productID (chỉ thông tin cơ bản, không có variants)
+    public Product getProduct(int productID) {
+        Product product = null;
+        try {
+            String sql = "SELECT * FROM Products WHERE ProductID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, productID);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                product = new Product(
+                    rs.getInt("ProductID"),
+                    rs.getInt("BrandID"),
+                    rs.getInt("CategoryID"),
+                    rs.getString("ProductName"),
+                    rs.getString("Description"),
+                    rs.getDouble("BasePrice"),
+                    rs.getString("ImageURL"),
+                    rs.getString("ImageColorURL"),
+                    rs.getString("CreatedAt")
+                );
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return product;
+    }
 }

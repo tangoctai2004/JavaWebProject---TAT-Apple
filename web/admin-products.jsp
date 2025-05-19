@@ -1,100 +1,128 @@
-<%-- 
-    Document   : admin-products
-    Created on : 17 thg 5, 2025, 20:13:38
-    Author     : tnteheh
---%>
-
+<%@page import="java.util.List"%>
+<%@page import="model.Product"%>
+<%@page import="dal.ProductDAO"%>
+<%@ page import="java.text.DecimalFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    ProductDAO dao = new ProductDAO();
+    List<Product> productList = dao.getAllProducts();
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>Admin - Products</title>
         <link href="assets/admin-products.css" rel="stylesheet" type="text/css"/>
         <link href="assets/admin-dashboard.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
     </head>
     <body>
         <div class="container">
-        <div class="sidebar">
-            <div class="logo" style="display: flex; justify-content: center; align-items: center;">
-                <img src="images/Logo.jpg" style="width: 100%; border-radius: 10px; " alt="">
-            </div>
-            <div class="menu">
-                <h4>MENU</h4>
-                <ul>
-                    <li><a href="admin-dashboard.jsp">Tổng quan</a></li>
-                    <li><a href="admin-products.jsp">Sản phẩm</a></li>
-                    <li><a href="admin-categories.jsp">Danh mục</a></li>
-                    <li><a href="admin-variant.jsp">Phiên bản sản phẩm</a></li>
-                    <li><a href="admin-admins.jsp">Quản trị viên</a></li>
-                    <li><a href="admin-users.jsp">Người dùng</a></li>
-                    <li><a herf="">Đăng xuất</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Header -->
-            <div class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Nhập để tìm kiếm...">
-                </div>
-                <div>
-                    <h1>
+                <%@ include file="admin-navbar-left.jsp" %>
 
-                    </h1>
+                <!-- Main Content -->
+                <div class="main-content">
+                    <%@ include file="admin-header.jsp" %>
+                <div class="header-title">
+                    <h1 style="font-family: 'Montserrat-Regular';">SẢN PHẨM</h1>
                 </div>
-                <div class="user-profile">
-                    <div>
-                        <p style="margin-right: 10px;">Xin chào, </p>
-                    </div>
-                    <div class="user-info" style="font-family: 'Montserrat-Regular';">
-                        <span>Tạ Ngọc Tài</span>
-                    </div>
+
+                <!-- Thêm sản phẩm -->
+                <div>
+                    <a href="admin-add-products.jsp" class="add-product-button">Thêm sản phẩm</a>
                 </div>
-            </div>
-            <!-- Title -->
-            <div class="header-title">
-                <h1 style="font-family: 'Montserrat-Regular';">SẢN PHẨM</h1>
-            </div>
-            <!-- Nút thêm sản phẩm -->
-            <div>
-                <a href="admin-add-products.jsp" class="add-product-button">Thêm sản phẩm</a>
-            </div>
-            <!-- Danh sách sản phẩm -->
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Thương hiệu</th>
-                            <th>Danh mục</th>
-                            <th>Giá</th>
-                            <th>Mô tả</th>
-                            <th>Dung lượng</th>
-                            <th>Hình ảnh</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
-                        <tr>
-                            <td>1</td>
-                            <td>iPhone 14</td>
-                            <td>Apple</td>
-                            <td>iPhone</td>
-                            <td>2000000</td>
-                            <td>ip14</td>
-                            <td><span class="capacity"></span></td>
-                            <td><img src="images/iphone14-purple.jpeg" alt=""/></td>
-                            <td><button class="edit-button">Sửa</button> | <button class="delete-button">Xóa</button></td>
-                        </tr>
-                        <!-- Thêm nhiều sản phẩm khác ở đây -->
-                    </tbody>
-                </table>
+                <%
+                    String deleteSuccess = request.getParameter("deleteSuccess");
+                    if (deleteSuccess != null) {
+                        if ("true".equals(deleteSuccess)) {
+                %>
+                            <div class="success-message" style="color: green; margin-bottom: 20px">Sản phẩm đã được xóa thành công!</div>
+                <%
+                        } else {
+                %>
+                            <div class="error-message" style="color: red; margin-bottom: 20px">Lỗi: Không thể xóa sản phẩm!</div>
+                <%
+                        }
+                    }
+                %>
+                <!-- Bảng danh sách sản phẩm -->
+                <div>
+                    <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Thương hiệu (BrandID)</th>
+                                <th>Danh mục (CategoryID)</th>
+                                <th>Giá</th>
+                                <th>Mô tả</th>
+                                <th>Hình ảnh</th>
+                                <th>Ảnh màu</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                for (Product p : productList) {
+                            %>
+                            <tr>
+                                <td><%= p.getProductID() %></td>
+                                <td><%= p.getProductName() %></td>
+                                <td><%= p.getBrandID() %></td>
+                                <td><%= p.getCategoryID() %></td>
+                                <td>
+                                    <%
+                                        DecimalFormat formatter = new DecimalFormat("#,###");
+                                        String formattedPrice = formatter.format(p.getBasePrice());
+                                    %>
+                                    <%= formattedPrice %> đ
+                                </td>
+                                <td>
+                                    <%
+                                        String desc = p.getDescription();
+                                        if (desc != null) {
+                                            if (desc.length() > 50) {
+                                                desc = desc.substring(0, 50) + "...";
+                                            }
+                                        } else {
+                                            desc = "";
+                                        }
+                                    %>
+                                    <%= desc %>
+                                </td>
+                                <td>
+                                    <% if (p.getImageURL() != null && !p.getImageURL().isEmpty()) { %>
+                                        <img src="<%= p.getImageURL() %>" alt="Image" style="width: 60px; height: 60px;"/>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (p.getImageColorURL() != null && !p.getImageColorURL().isEmpty()) { %>
+                                        <img src="<%= p.getImageColorURL() %>" alt="Color Image" style="width: 60px; height: 60px;"/>
+                                    <% } %>
+                                </td>
+                                <td><%= p.getCreatedAt() %></td>
+                                <td>
+                                    <a href="admin-edit-products.jsp?productID=<%= p.getProductID() %>" class="edit-button" style="display: inline-block;margin-right: 10px;margin-bottom: 5px;">Sửa</a>
+                                    <br>
+                                    <a href="#" onclick="confirmDelete('<%= p.getProductID() %>', '<%= p.getProductName() %>');" class="delete-button" style="display: inline-block;">Xóa</a>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     </body>
+    <script>
+        function confirmDelete(productID, productName) {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm '" + productName + "' không?")) {
+                window.location.href = "delete-product?productID=" + productID;
+            }
+        }
+    </script>
 </html>
