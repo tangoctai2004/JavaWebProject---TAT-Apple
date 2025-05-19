@@ -1,3 +1,12 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 19 thg 5, 2025, 13:14:41
+    Author     : tnteheh
+*/
+
 /* Reset default styles */
 * {
     margin: 0;
@@ -136,6 +145,23 @@ body {
 }
 
 .user-before-login a:hover {
+    color: #666;
+}
+
+.user-after-login li {
+    list-style: none;
+    padding: 10px;
+    margin: 0; /* Ensure no extra margin */
+}
+
+.user-after-login a {
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    display: block; /* Ensure the link takes up the full width of the li */
+}
+
+.user-after-login a:hover {
     color: #666;
 }
 

@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css"/>
         <link href="assets/iphone.css" rel="stylesheet" type="text/css"/>
         <link href="assets/home.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <title>TAT Apple - Đại lý uỷ quyền Apple</title>
     </head>
     <body>
         <%@ include file="header.jsp" %>

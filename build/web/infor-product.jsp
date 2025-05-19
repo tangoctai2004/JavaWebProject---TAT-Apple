@@ -29,7 +29,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><%= product != null ? product.getProductName() : "Sản phẩm không tồn tại" %></title>
+        <title>TAT Apple - <%= product != null ? product.getProductName() : "Sản phẩm không tồn tại" %></title>
         <link href="assets/infor-product.css" rel="stylesheet" type="text/css"/>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@
                             </div>
                             <hr>
                             <div class="product-details_capacity">
-                                <h4>Capacity</h4>
+                                <h4>Variant</h4>
                                 <span class="product-details_capacity_button">
                                     <%
                                         for (ProductVariant variant : variants) {
