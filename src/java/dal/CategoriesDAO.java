@@ -35,4 +35,43 @@ public class CategoriesDAO extends DBContext{
 
         return categories;
     }
+    
+    
+    //Thêm Category
+    public void insertCategory(String name, String description) {
+        String sql = "INSERT INTO Categories (CategoryName, Description) VALUES (?, ?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //Sửa Category
+    public void updateCategory(int id, String name, String description) {
+        String sql = "UPDATE Categories SET CategoryName = ?, Description = ? WHERE CategoryID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setInt(3, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //Xoá Category
+    public void deleteCategory(int id) {
+            String sql = "DELETE FROM Categories WHERE CategoryID = ?";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setInt(1, id);
+                st.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 }

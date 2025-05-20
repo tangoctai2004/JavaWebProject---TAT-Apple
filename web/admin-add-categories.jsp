@@ -27,11 +27,10 @@
                 </div>
                 <!-- Edit Product Form -->
                 <div class="edit-product-form">
-                    <form action="" method="" enctype="">
-                        <input type="hidden" name="id" value="">
+                    <form action="add-category" method="post">
                         <div class="form-group">
                             <label for="product-name">Tên danh mục</label>
-                            <input type="text" id="product-name" name="product-name" required>
+                            <input type="text" id="product-name" name="categoryName" required>
                         </div>
                         <div class="form-group">
                             <label for="description">Mô tả</label>
@@ -39,7 +38,7 @@
                         </div>
                         <div class="form-buttons">
                             <button type="submit" class="add-button">Thêm</button>
-                            <a href="admin-products.jsp" class="cancel-button">Hủy</a>
+                            <a href="admin-categories.jsp" class="cancel-button">Hủy</a>
                         </div>
                     </form>
                 </div>

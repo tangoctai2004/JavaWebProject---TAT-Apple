@@ -7,6 +7,7 @@
 <%
     ProductDAO dao = new ProductDAO();
     List<Product> productList = dao.getAllProducts();
+    productList.sort((p1, p2) -> Integer.compare(p1.getProductID(), p2.getProductID()));
 %>
 
 <!DOCTYPE html>

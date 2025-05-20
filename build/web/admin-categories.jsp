@@ -4,6 +4,7 @@
     Author     : tnteheh
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,13 +39,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
-                        <tr>
-                            <td>1</td>
-                            <td>iPhone</td>
-                            <td>Điện thoại iPhone</td>
-                            <td><button class="edit-button">Sửa</button> | <button class="delete-button">Xóa</button></td>
-                        </tr>
+                        <%
+                            List<model.Category> categoryList = (List<model.Category>) request.getAttribute("categoryList");
+                            if (categoryList != null) {
+                                for (model.Category c : categoryList) {
+                        %>
+                            <tr>
+                                <td><%= c.getCategoryID() %></td>
+                                <td><%= c.getCategoryName() %></td>
+                                <td><%= c.getDescription() %></td>
+                                <td>
+                                    <a href="update-category?id=<%= c.getCategoryID() %>" class="edit-button">Sửa</a> |
+                                    <a href="delete-category?id=<%= c.getCategoryID() %>" class="delete-button" onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?');">Xóa</a>
+                                </td>
+                            </tr>
+                        <%
+                                }
+                            }
+                        %>
                     </tbody>
                 </table>
             </div>

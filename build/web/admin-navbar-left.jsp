@@ -22,7 +22,7 @@
                 <ul>
                     <li><a href="admin-dashboard.jsp">Tổng quan</a></li>
                     <li><a href="admin-products.jsp">Sản phẩm</a></li>
-                    <li><a href="admin-categories.jsp">Danh mục</a></li>
+                    <li><a href="admin-categories">Danh mục</a></li>
                     <li><a href="admin-variant.jsp">Phiên bản sản phẩm</a></li>
                     <li><a href="admin-admins.jsp">Quản trị viên</a></li>
                     <li><a href="admin-users.jsp">Người dùng</a></li>
