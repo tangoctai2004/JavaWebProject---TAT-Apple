@@ -105,9 +105,9 @@
                                 </td>
                                 <td><%= p.getCreatedAt() %></td>
                                 <td>
-                                    <a href="admin-edit-products.jsp?productID=<%= p.getProductID() %>" class="edit-button" style="display: inline-block;margin-right: 10px;margin-bottom: 5px;">Sửa</a>
+                                    <a href="admin-edit-products.jsp?productID=<%= p.getProductID() %>" class="edit-button" style="display: inline-block;margin-right: 10px;margin-bottom: 5px; text-decoration: none">Sửa</a>
                                     <br>
-                                    <a href="#" onclick="confirmDelete('<%= p.getProductID() %>', '<%= p.getProductName() %>');" class="delete-button" style="display: inline-block;">Xóa</a>
+                                    <a href="#" onclick="confirmDelete('<%= p.getProductID() %>', '<%= p.getProductName() %>');" class="delete-button" style="display: inline-block; text-decoration: none">Xóa</a>
                                 </td>
                             </tr>
                             <%

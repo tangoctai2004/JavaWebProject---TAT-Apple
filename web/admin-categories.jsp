@@ -49,8 +49,8 @@
                                 <td><%= c.getCategoryName() %></td>
                                 <td><%= c.getDescription() %></td>
                                 <td>
-                                    <a href="update-category?id=<%= c.getCategoryID() %>" class="edit-button">Sửa</a> |
-                                    <a href="delete-category?id=<%= c.getCategoryID() %>" class="delete-button" onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?');">Xóa</a>
+                                    <a href="update-category?id=<%= c.getCategoryID() %>" class="edit-button" style="text-decoration: none">Sửa</a> |
+                                    <a href="delete-category?id=<%= c.getCategoryID() %>" class="delete-button" style="text-decoration: none" onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?');">Xóa</a>
                                 </td>
                             </tr>
                         <%

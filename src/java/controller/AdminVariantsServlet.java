@@ -5,7 +5,7 @@
 
 package controller;
 
-import dal.CategoriesDAO;
+import dal.ProductVariantDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,13 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.ProductVariant;
 
 /**
  *
  * @author tnteheh
  */
-@WebServlet(name="AddCategoryServlet", urlPatterns={"/add-category"})
-public class AddCategoryServlet extends HttpServlet {
+@WebServlet(name="AdminVariantsServlet", urlPatterns={"/admin-variants"})
+public class AdminVariantsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +38,10 @@ public class AddCategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCategoryServlet</title>");
+            out.println("<title>Servlet AdminVariantsServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCategoryServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AdminVariantsServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +58,10 @@ public class AddCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.sendRedirect("admin-categories");
+        ProductVariantDAO dao = new ProductVariantDAO();
+        List<ProductVariant> variants = dao.getAllVariants();
+        request.setAttribute("variants", variants);
+        request.getRequestDispatcher("admin-variant.jsp").forward(request, response);
     }
 
     /**
@@ -69,16 +74,7 @@ public class AddCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-
-        String name = request.getParameter("categoryName");
-        String description = request.getParameter("description");
-
-        CategoriesDAO dao = new CategoriesDAO();
-        dao.insertCategory(name, description);
-
-        // Sau khi thêm xong, chuyển về trang quản lý danh mục
-        response.sendRedirect("admin-categories");
+        processRequest(request, response);
     }
 
     /**

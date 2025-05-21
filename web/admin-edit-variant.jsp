@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.ProductVariant"%>
+<%
+    ProductVariant variant = (ProductVariant) request.getAttribute("variant");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +17,7 @@
     <link href="assets/admin-products.css" rel="stylesheet" type="text/css"/>
     <link href="assets/admin-dashboard.css" rel="stylesheet" type="text/css"/>
     <link href="assets/admin-edit-products.css" rel="stylesheet" type="text/css"/>
-    <title>Sửa Sản Phẩm</title>
+    <title>Sửa Phiên Bản Sản Phẩm</title>
 </head>
 <body>
     <div class="container">
@@ -27,27 +31,27 @@
             </div>
             <!-- Edit Product Form -->
             <div class="edit-product-form">
-                <form action="" method="" enctype="">
-                    <input type="hidden" name="id" value="">
+                <form action="update-variant" method="post">
+                    <input type="hidden" name="variantId" value="<%= variant.getVariantId() %>">
                     <div class="form-group">
-                        <label for="id-product">ID sản phẩm</label>
-                        <input type="text" id="id-product" name="id-product" required>
+                        <label for="productId">ID sản phẩm</label>
+                        <input type="text" id="productId" name="productId" value="<%= variant.getProductId() %>" required>
                     </div>
                     <div class="form-group">
-                        <label for="capacity">DUNG LƯỢNG</label>
-                        <input type="text" id="capacity" name="capacity" required>
+                        <label for="capacity">Phiên bản</label>
+                        <input type="text" id="capacity" name="capacity" value="<%= variant.getCapacity() %>" required>
                     </div>
                     <div class="form-group">
                         <label for="price">Giá</label>
-                        <input type="text" id="price" name="price" required>
+                        <input type="text" id="price" name="price" value="<%= variant.getPrice() %>" required>
                     </div>
                     <div class="form-group">
                         <label for="stock">Số lượng</label>
-                        <input type="text" id="stock" name="stock" required>
+                        <input type="text" id="stock" name="stock" value="<%= variant.getStock() %>" required>
                     </div>
                     <div class="form-buttons">
-                        <button type="submit" class="add-button">Thêm</button>
-                        <a href="admin-products.jsp" class="cancel-button">Hủy</a>
+                        <button type="submit" class="add-button">Lưu</button>
+                        <a href="admin-variant" class="cancel-button">Hủy</a>
                     </div>
                 </form>
             </div>

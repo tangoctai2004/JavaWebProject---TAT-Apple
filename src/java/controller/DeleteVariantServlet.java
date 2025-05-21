@@ -1,11 +1,12 @@
+package controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
 
-import dal.CategoriesDAO;
+import dal.ProductVariantDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,8 +19,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author tnteheh
  */
-@WebServlet(name="AddCategoryServlet", urlPatterns={"/add-category"})
-public class AddCategoryServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/delete-variant"})
+public class DeleteVariantServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +37,10 @@ public class AddCategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCategoryServlet</title>");
+            out.println("<title>Servlet DeleteVariantServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCategoryServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteVariantServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +57,16 @@ public class AddCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.sendRedirect("admin-categories");
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            ProductVariantDAO dao = new ProductVariantDAO();
+            dao.deleteVariantById(id);
+
+            response.sendRedirect("admin-variants");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("Lỗi khi xóa phiên bản: " + e.getMessage());
+        }
     }
 
     /**
@@ -69,16 +79,7 @@ public class AddCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-
-        String name = request.getParameter("categoryName");
-        String description = request.getParameter("description");
-
-        CategoriesDAO dao = new CategoriesDAO();
-        dao.insertCategory(name, description);
-
-        // Sau khi thêm xong, chuyển về trang quản lý danh mục
-        response.sendRedirect("admin-categories");
+        processRequest(request, response);
     }
 
     /**

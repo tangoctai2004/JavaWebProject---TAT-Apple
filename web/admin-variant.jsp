@@ -4,6 +4,8 @@
     Author     : tnteheh
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model.ProductVariant"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,22 +33,37 @@
                         <tr>
                             <th>ID</th>
                             <th>ID sản phẩm</th>
-                            <th>Dung lượng</th>
+                            <th>Phiên bản</th>
                             <th>Giá</th>
                             <th>Số lượng còn</th>
                             <th>Thao tác</th>
                         </tr>
-                    </thead>
+                    </thead>                
                     <tbody>
-                        <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>256GB</td>
-                            <td>42990000</td>
-                            <td>30</td>
-                            <td><button class="edit-button">Sửa</button> | <button class="delete-button">Xóa</button></td>
-                        </tr>
+                    <%
+                        List<ProductVariant> variants = (List<ProductVariant>) request.getAttribute("variants");
+                        if (variants != null) {
+                            for (ProductVariant v : variants) {
+                    %>
+                                <tr>
+                                    <td><%= v.getVariantId() %></td>
+                                    <td><%= v.getProductId() %></td>
+                                    <td><%= v.getCapacity() %></td>
+                                    <td><%= String.format("%,.0f", v.getPrice()) %></td>
+                                    <td><%= v.getStock() %></td>
+                                    <td>
+                                        <a href="update-variant?id=<%= v.getVariantId() %>" class="edit-button" style="text-decoration: none">Sửa</a> |
+                                        <a href="delete-variant?id=<%= v.getVariantId() %>" class="delete-button" style="text-decoration: none" onclick="return confirm('Bạn có chắc chắn muốn xóa phiên bản này không?');">Xóa</a>
+                                    </td>
+                                </tr>
+                    <%
+                            }
+                        } else {
+                    %>
+                            <tr><td colspan="6">Không có dữ liệu</td></tr>
+                    <%
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>

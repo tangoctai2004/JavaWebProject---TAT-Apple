@@ -23,12 +23,9 @@
     <body>
         <!-- Header -->
             <div class="header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Nhập để tìm kiếm...">
-                </div>
                 <div class="user-profile">
                     <div>
-                        <p style="margin-right: 10px;">Xin chào,</p>
+                        <p style="margin-right: 5px;">Xin chào,</p>
                     </div>
                     <div class="user-info">
                         <span><%= admin.getFullName() %></span>

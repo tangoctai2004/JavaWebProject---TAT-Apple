@@ -18,7 +18,7 @@
     </head>
     <body>
         <%@ include file="header.jsp" %>
-        <main style="font-family: Montserrat, sans-serif">
+        <main>
         <!-- SLIDE CHẠY ẢNH  -->
             <div class="slide-show" style="margin-bottom: 50px;">
             <div class="list-images">
