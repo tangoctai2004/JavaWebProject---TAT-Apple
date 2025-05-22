@@ -1,10 +1,15 @@
-<%-- 
-    Document   : cart
-    Created on : 17 thg 5, 2025, 18:47:52
-    Author     : tnteheh
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.CartItem"%>
+<%@page import="java.util.List"%>
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
+<%
+    List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
+    if (cartItems == null) cartItems = new java.util.ArrayList<>();
+
+    NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+    long total = 0;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,26 +34,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                                for (CartItem item : cartItems) {
+                                    long itemTotal = item.getPrice() * item.getQuantity();
+                                    total += itemTotal;
+                            %>
                             <tr>
-                                <td>iPhone 15 Pro Max (256GB)</td>
-                                <td>32,990,000 VND</td>
-                                <td><input type="number" name="quantity_1" value="1" min="1"></td>
-                                <td>32,990,000 VND</td>
-                                <td><button type="submit" name="action" value="remove_1" class="remove-btn">Xóa</button></td>
+                                <td><%= item.getProductName() %> (<%= item.getCapacity() %>)</td>
+                                <td><%= formatter.format(item.getPrice()) %> VND</td>
+                                <td>
+                                    <input type="number" name="quantity_<%= item.getVariantId() %>" value="<%= item.getQuantity() %>" min="1">
+                                </td>
+                                <td><%= formatter.format(itemTotal) %> VND</td>
+                                <td>
+                                    <button type="submit" name="action" value="remove_<%= item.getVariantId() %>" class="remove-btn">Xóa</button>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>MacBook Pro 14 inch (512GB)</td>
-                                <td>55,990,000 VND</td>
-                                <td><input type="number" name="quantity_2" value="1" min="1"></td>
-                                <td>55,990,000 VND</td>
-                                <td><button type="submit" name="action" value="remove_2" class="remove-btn">Xóa</button></td>
-                            </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
                     <div class="cart-total">
                         <span>Tổng cộng:</span>
-                        <span>88,980,000 VND</span>
+                        <span><%= formatter.format(total) %> VND</span>
                     </div>
+                    <button type="submit" name="action" value="update" class="checkout-btn">Cập nhật giỏ hàng</button>
                     <button type="submit" name="action" value="checkout" class="checkout-btn">Thanh toán</button>
                 </form>
             </div>

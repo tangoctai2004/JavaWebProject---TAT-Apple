@@ -91,6 +91,7 @@
                         <form id="addToCartForm" action="CartServlet" method="post">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="productID" value="<%= product.getProductID() %>">
+                            <input type="hidden" name="variantID" id="selectedVariantID" value="<%= defaultVariant != null ? defaultVariant.getVariantId() : 0 %>">
                             <input type="hidden" name="capacity" id="selectedCapacity" value="<%= defaultCapacity %>">
                             <input type="hidden" name="price" id="selectedPrice" value="<%= defaultVariant != null ? defaultVariant.getPrice() : 0 %>">
                             <button type="submit" class="product-add-cart_btn">Thêm vào giỏ hàng</button>

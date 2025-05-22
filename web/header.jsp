@@ -70,7 +70,7 @@
                         <% } else { %>
                             <div class="user-after-login">
                                 <li class="header-user_item">
-                                    <a href="profile.jsp">Thông tin cá nhân</a>
+                                    <a href="user-profile.jsp">Thông tin cá nhân</a>
                                 </li>
                                 <li class="header-user_item">
                                     <a href="logout">Đăng xuất</a>

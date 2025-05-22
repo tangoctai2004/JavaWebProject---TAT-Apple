@@ -83,4 +83,44 @@ public class UserDAO{
         }
         return false;
     }
+    
+    //Lấy thông tin User cho trang profile
+    public boolean updateUser(User user) {
+        String sql = "UPDATE Users SET FullName = ?, Phone = ?, Address = ? WHERE UserID = ?";
+        try {
+            DBContext db = new DBContext();
+            Connection conn = db.connection;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getFullName());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getAddress());
+            ps.setInt(4, user.getUserID());
+            int rows = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    //Thay mật khẩu
+    public boolean updatePassword(String email, String newPassword) {
+        String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
+        try {
+            DBContext db = new DBContext();
+            Connection conn = db.connection;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            int rows = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
