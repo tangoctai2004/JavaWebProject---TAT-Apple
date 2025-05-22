@@ -86,7 +86,7 @@ public class AddVariantServlet extends HttpServlet {
             ProductVariantDAO dao = new ProductVariantDAO();
             dao.insertVariant(variant);
 
-            response.sendRedirect("admin-variant");
+            response.sendRedirect("admin-variants");
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().println("Lỗi: " + e.getMessage());

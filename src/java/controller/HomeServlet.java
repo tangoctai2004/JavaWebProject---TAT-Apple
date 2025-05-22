@@ -61,8 +61,14 @@ public class HomeServlet extends HttpServlet {
         ProductDAO dao = new ProductDAO();
 
         List<Product> featuredProducts = dao.getFeaturedProducts(4);
+        List<Product> iphoneList = dao.getNewestProductsByCategory(1, 5);
+        List<Product> ipadList = dao.getNewestProductsByCategory(2, 5);
+        List<Product> macbookList = dao.getNewestProductsByCategory(3, 5);
 
         request.setAttribute("productList", featuredProducts);
+        request.setAttribute("iphoneList", iphoneList);
+        request.setAttribute("ipadList", ipadList);
+        request.setAttribute("macbookList", macbookList);
 
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

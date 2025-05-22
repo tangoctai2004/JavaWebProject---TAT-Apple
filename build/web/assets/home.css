@@ -161,3 +161,62 @@ main{
 .tintuc img{
     width: 100%;
 }
+.all-product-list{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.all-product-frame{
+    width: 1300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-family: Monsterrat-Light;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.all-product{
+    margin: 0;
+    cursor: pointer;
+}
+
+.all-product a{
+    text-decoration: none;
+}
+
+.all-product a:hover{
+    background-color: #F1F1F1;
+}
+
+.all-product-img{
+    width: 249.75px;
+    height: 249.75px;
+}
+
+.all-product-name{
+    margin-top: 15px;
+    color: #808080;
+}
+
+.all-product-price{
+    margin-top: 15px;
+    font-size: 16px;
+    color: crimson;
+}
+
+.all-product-color{
+    display: flex;
+    justify-content: center;
+}
+
+.all-product-color_icon{
+    width: 12.87px;
+    height: 12.87px;
+    margin: 5px;
+    margin-top: 15px;
+}
+

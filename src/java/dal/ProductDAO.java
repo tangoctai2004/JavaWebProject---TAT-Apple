@@ -208,13 +208,42 @@ public class ProductDAO extends DBContext {
     
     // Lấy sản phẩm theo ID để sửa
     public Product getProductById(int productID) {
-        Product product = null;
-        String sql = "SELECT * FROM Products WHERE ProductID = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, productID);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                product = new Product(
+            Product product = null;
+            String sql = "SELECT * FROM Products WHERE ProductID = ?";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, productID);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    product = new Product(
+                        rs.getInt("ProductID"),
+                        rs.getInt("BrandID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("ProductName"),
+                        rs.getString("Description"),
+                        rs.getDouble("BasePrice"),
+                        rs.getString("ImageURL"),
+                        rs.getString("ImageColorURL"),
+                        rs.getString("CreatedAt")
+                    );
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return product;
+    }
+    
+    
+    //Lấy 5 sản phẩm mới của các Category cho Home
+    public List<Product> getNewestProductsByCategory(int categoryId, int number) {
+        List<Product> list = new ArrayList<>();
+        try {
+            // Tránh dùng TOP (?) → ghép chuỗi trực tiếp
+            String sql = "SELECT TOP " + number + " * FROM Products WHERE CategoryID = ? ORDER BY CreatedAt DESC";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, categoryId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(
                     rs.getInt("ProductID"),
                     rs.getInt("BrandID"),
                     rs.getInt("CategoryID"),
@@ -225,10 +254,11 @@ public class ProductDAO extends DBContext {
                     rs.getString("ImageColorURL"),
                     rs.getString("CreatedAt")
                 );
+                list.add(p);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return product;
-}
+        return list;
+    }
 }
